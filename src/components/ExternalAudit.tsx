@@ -94,7 +94,7 @@ export default function ExternalAudit({ pages }: Props) {
   const domainCounts = useMemo(() => {
     const counts = new Map<string, number>()
     for (const r of rows) counts.set(r.domain, (counts.get(r.domain) ?? 0) + 1)
-    return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10)
+    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, 10)
   }, [rows])
 
   return (

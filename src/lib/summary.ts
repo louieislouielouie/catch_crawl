@@ -34,8 +34,8 @@ export function computeSummary(pages: PageData[]): AuditSummary {
     if (p.title) titleCounts.set(p.title, (titleCounts.get(p.title) ?? 0) + 1)
     if (p.metaDescription) descCounts.set(p.metaDescription, (descCounts.get(p.metaDescription) ?? 0) + 1)
   }
-  const dupTitles = new Set([...titleCounts.entries()].filter(([, c]) => c > 1).map(([t]) => t))
-  const dupDescs = new Set([...descCounts.entries()].filter(([, c]) => c > 1).map(([d]) => d))
+  const dupTitles = new Set(Array.from(titleCounts.entries()).filter(([, c]) => c > 1).map(([t]) => t))
+  const dupDescs = new Set(Array.from(descCounts.entries()).filter(([, c]) => c > 1).map(([d]) => d))
   const extLinks = pages.flatMap(p => p.externalLinks ?? [])
   const uniqueDomains = new Set(extLinks.map(l => { try { return new URL(l.href).hostname } catch { return '' } }).filter(Boolean))
   let totalErrors = 0, totalWarnings = 0, totalInfos = 0
